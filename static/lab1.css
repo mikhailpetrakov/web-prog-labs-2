@@ -1,0 +1,16 @@
+.image {
+    width: 700px;
+    height: 500px;
+    display: block;
+    margin-inline: auto;
+}
+
+.oak-title {
+    text-align: center;
+    color: brown;
+    font-size: 48px;
+}
+
+.body {
+    background-color: bisque;
+}

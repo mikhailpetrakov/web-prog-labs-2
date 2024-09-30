@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask, redirect, url_for
 app = Flask(__name__)
 
 @app.route("/")
@@ -56,3 +56,17 @@ def lab1():
     </body>
 </html>
 """
+@app.route("/lab1/oak")
+def oak():
+    return '''
+<!DOCTYPE html>
+    <head>
+       <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+    </head>
+<html>
+    <body class="body">
+        <h1 class="oak-title">Дуб</h1>
+        <img class="image" src="''' + url_for('static', filename='oak.jpg')+'''">
+    </body>
+</html>
+'''
