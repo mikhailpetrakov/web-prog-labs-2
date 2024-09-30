@@ -14,3 +14,30 @@
 .body {
     background-color: bisque;
 }
+
+.png {
+    width: 300px;
+    height: 150px;
+    display: block;
+    margin-inline: auto;
+}
+
+.text {
+    line-height: 24px;
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+.header {
+    color: rgb(103, 4, 122);
+    background-color: aquamarine;
+    padding: 20px;
+    font-size: 24px;
+}
+
+.footer {
+    color: rgb(103, 4, 122);
+    background-color: aquamarine;
+    padding: 20px;
+    font-size: 24px;
+}
