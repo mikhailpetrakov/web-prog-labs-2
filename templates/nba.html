@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block lab %}Лабораторная работа 2{% endblock %}
+
+{% block main %}
+    <h1>Игроки НБА</h1>
+    <div class="text">
+        {% for i in images %}
+        <img class="image" src="{{ url_for('static', filename=i.image) }}" alt="{{ i.name }}"> 
+        {{ i.description }}
+        {% endfor %}
+    </div>
+{% endblock %}

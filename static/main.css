@@ -19,3 +19,14 @@ footer {
     background: lightseagreen;
     text-align: right;
 }
+
+.image {
+    width: 800px;
+    height: 500px;
+    display: block;
+    margin-inline: auto;
+}
+
+.text {
+    font-size: 18px;
+}
