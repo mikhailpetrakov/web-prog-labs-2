@@ -187,6 +187,18 @@ def example():
         {'name': 'мандарины', 'price': 95},
         {'name': 'манго', 'price': 321},
     ]
+    books = [
+        {'author': 'Джордж Оруэлл', 'name': '"1984"', 'genre': 'Антиутопия', 'pages': 328},
+        {'author': 'Ф. Скотт Фицджеральд', 'name': '"Великий Гэтсби"', 'genre': 'Классическая литература', 'pages': 192},
+        {'author': 'Рэй Брэдбери', 'name': '"451 градус по Фаренгейту"', 'genre': 'Научная фантастика', 'pages': 256},
+        {'author': 'Харпер Ли', 'name': '"Убить пересмешника"', 'genre': 'Классическая литература', 'pages': 281},
+        {'author': 'Маргарет Этвуд', 'name': '"Рассказ Служанки"', 'genre': 'Антиутопия', 'pages': 311},
+        {'author': 'Джордж Р.Р. Мартин', 'name': '"Игра престолов"', 'genre': 'Фэнтези', 'pages': 694},
+        {'author': 'Эрнест Хемингуэй', 'name': '"Старик и море"', 'genre': 'Классическая литература', 'pages': 127},
+        {'author': 'Джон Толкин', 'name': '"Властелин колец"', 'genre': 'Фэнтези', 'pages': 1178},
+        {'author': 'Джек Лондон', 'name': '"Зов предков"', 'genre': 'Приключения', 'pages': 176},
+        {'author': 'Агата Кристи', 'name': '"Убийство в Восточном экспрессе"', 'genre': 'Детектив', 'pages': 256}
+    ]
     return render_template('example.html',
                             name=name, number=number,
-                            group=group, course=course, fruits=fruits)
+                            group=group, course=course, fruits=fruits, books=books)
