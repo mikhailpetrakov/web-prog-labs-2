@@ -65,7 +65,7 @@ def lab1():
 
             <ul class=text>
                 <li>
-                    <a href="/lab1/ouk">Дуб</a>
+                    <a href="/lab1/oak">Дуб</a>
                 </li>
            
                 <li>
