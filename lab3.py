@@ -61,5 +61,17 @@ def pay():
 
 @lab3.route('/lab3/success')
 def success():
-    price = request.args.get('price', default=0, type=int)
-    return render_template('lab3/success.html', price=price)
+    price = 0
+    drink = request.args.get('drink')
+    if drink == 'coffee':
+        price = 120
+    elif drink == 'black-tea':
+        price = 80
+    else:
+        price = 70
+
+    if request.args.get('milk') == 'on':
+        price +=30
+    if request.args.get('sugar') == 'on':
+        price += 10
+    return render_template('lab3/success.html', price=price, drink=drink)
