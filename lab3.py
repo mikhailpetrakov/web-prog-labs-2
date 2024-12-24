@@ -75,3 +75,20 @@ def success():
     if request.args.get('sugar') == 'on':
         price += 10
     return render_template('lab3/success.html', price=price, drink=drink)
+
+@lab3.route('/lab3/settings')
+def settings():
+    color = request.args.get('color')
+    background_color = request.args.get('background-color')
+    font_size = request.args.get('font-size')
+    if color:
+        resp = make_response(redirect('/lab3/settings'))
+        resp.set_cookie('color', color)
+        resp.set_cookie('background-color', background_color)
+        resp.set_cookie('font-size', font_size)
+        return resp
+    color = request.cookies.get('color')
+    background_color = request.cookies.get('background-color')
+    font_size = request.cookies.get('font-size')
+    resp = make_response(render_template('lab3/settings.html', color=color, background_color=background_color, font_size=font_size))
+    return resp
