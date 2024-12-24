@@ -157,3 +157,11 @@ def ticket():
     if request.args.get('insurance') == 'on':
         price += 150
     return render_template('lab3/ticket.html', price=price, user=user, age=age, place=place, exit=exit, arrival=arrival, date=date, underwear=underwear, luggage=luggage, insurance=insurance)
+
+@lab3.route('/lab3/del_settings')
+def del_settings():
+    resp = make_response(redirect('/lab3/settings'))
+    cookies = request.cookies.keys()
+    for cookie in cookies:
+        resp.set_cookie(cookie, '', expires=0)
+    return resp
