@@ -9,7 +9,7 @@ def lab():
 <html>
     <head>
         <title>Петраков Михаил Вячеславович, лабораторная 1</title>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') +'''">
     </head>
     <body class="body">
         <header class="header">
@@ -63,12 +63,12 @@ def oak():
     return '''
 <!DOCTYPE html>
     <head>
-       <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+       <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') +'''">
     </head>
 <html>
     <body class="body">
         <h1 class="oak-title">Дуб</h1>
-        <img class="image" src="''' + url_for('static', filename='oak.jpg')+'''">
+        <img class="image" src="''' + url_for('static', filename='lab1/oak.jpg')+'''">
     </body>
 </html>
 '''
@@ -79,12 +79,12 @@ def student():
     return '''
 <!DOCTYPE html>
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') +'''">
     </head>
 <html>
     <body class="body">
         <h1 class="oak-title">Петраков Михаил Вячеславович</h1>
-        <img class="png" src="''' + url_for('static', filename='nstu.png')+'''">
+        <img class="png" src="''' + url_for('static', filename='lab1/nstu.png')+'''">
     </body>
 </html>
 '''
@@ -95,7 +95,7 @@ def python():
     return '''
 <!DOCTYPE html>
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') +'''">
     </head>
 <html>
     <body class="body">
@@ -108,7 +108,7 @@ def python():
             объектно-ориентированное и функциональное программирование. Его часто называют языком «с батарейками в комплекте»
             из-за его всеобъемлющей стандартной библиотеки.
         </div>
-        <img class="png" src="''' + url_for('static', filename='python.png')+'''">
+        <img class="png" src="''' + url_for('static', filename='lab1/python.png')+'''">
     </body>
 </html>
 '''
@@ -119,7 +119,7 @@ def bioshock():
     return '''
 <!DOCTYPE html>
     <head>
-        <link rel="stylesheet" href="''' + url_for('static', filename='lab1.css') +'''">
+        <link rel="stylesheet" href="''' + url_for('static', filename='lab1/lab1.css') +'''">
     </head>
 <html>
     <body class="body">
@@ -145,7 +145,7 @@ def bioshock():
                 раскрывается сюжетная связь между городами Колумбия и Восторг.
             </p>
         </div>
-        <img class="png" src="''' + url_for('static', filename='bioshock.png')+'''">
+        <img class="png" src="''' + url_for('static', filename='lab1/bioshock.png')+'''">
     </body>
 </html>
 '''
