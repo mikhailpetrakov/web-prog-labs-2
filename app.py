@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.register_blueprint(lab1)
 app.register_blueprint(lab2)
 app.register_blueprint(lab3)
+app.register_blueprint(lab4)
 
 
 @app.route("/")
@@ -39,6 +40,9 @@ def menu():
             </li>
             <li>
                 <a href="/lab3">3 лабораторная</a>
+            </li>
+              <li>
+                <a href="/lab4">4 лабораторная</a>
             </li>
         </ul>
 
