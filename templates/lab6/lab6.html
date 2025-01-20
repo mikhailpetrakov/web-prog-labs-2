@@ -22,7 +22,7 @@ function getOfficeList() {
     .then(function(data){
         const office_list = data.result;
         const ul = document.getElementById('office-list');
-        ul.innerHTML = ''; 
+        ul.innerHTML = ''; // Очищаем список перед обновлением 
         let totalRentCost = 0;
 
         for(let i = 0; i < office_list.length; i++){
@@ -32,23 +32,25 @@ function getOfficeList() {
 
             const bookingButton = document.createElement('button');
             bookingButton.innerText = 'зарезервировать';
+            bookingButton.className = 'booking';
             bookingButton.onclick = function() { booking(office.number) };
             li.appendChild(bookingButton);
 
             const cancellationButton = document.createElement('button');
             cancellationButton.innerText = 'освободить';
+            cancellationButton.className = 'cancellation';
             cancellationButton.onclick = function() { cancellation(office.number) };
             li.appendChild(cancellationButton);
 
             ul.appendChild(li);
 
-        
+            // Считаем общую стоимость арендованных офисов
             if (office.tenant) {
                 totalRentCost += office.price;
             }
         }
 
-       
+        // Выводим общую стоимость аренды
         const totalRentCostElement = document.getElementById('total-rent-cost');
         totalRentCostElement.innerText = `Общая стоимость аренды: ${totalRentCost} руб.`;
     });
@@ -136,6 +138,62 @@ document.addEventListener('DOMContentLoaded', function(){
 {% endblock %}
 
 {% block main %}
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    text-align: center;
+    color: #333;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+li {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+li:last-child {
+    border-bottom: none;
+}
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #ddd;
+}
+button.booking {
+    background-color: #4CAF50;
+    color: white;
+}
+button.cancellation {
+    background-color: #f44336;
+    color: white;
+}
+p#total-rent-cost {
+    text-align: center;
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+}
+</style>
     <h1>Список кабинетов</h1>
     <ul id="office-list"></ul>
     <p id="total-rent-cost">Общая стоимость аренды: 0 руб.</p>
