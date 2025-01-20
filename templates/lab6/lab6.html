@@ -20,15 +20,19 @@ function getOfficeList() {
         return response.json()
     })
     .then(function(data){
-        const office_list =data.result;
+        const office_list = data.result;
         const ul = document.getElementById('office-list');
-        for(let i = 0; i<office_list.length;i++){
+        ul.innerHTML = ''; 
+        let totalRentCost = 0;
+
+        for(let i = 0; i < office_list.length; i++){
             const office = office_list[i];
             const li = document.createElement('li');
-            li.innerText = `${office.number}: ${office.tenant || 'свободен'}`;;
+            li.innerText = `${office.number}: ${office.tenant || 'свободен'}, стоимость аренды: ${office.price} руб.`;
+
             const bookingButton = document.createElement('button');
             bookingButton.innerText = 'зарезервировать';
-            bookingButton.onclick = function() {booking(office.number)};
+            bookingButton.onclick = function() { booking(office.number) };
             li.appendChild(bookingButton);
 
             const cancellationButton = document.createElement('button');
@@ -37,46 +41,56 @@ function getOfficeList() {
             li.appendChild(cancellationButton);
 
             ul.appendChild(li);
+
+        
+            if (office.tenant) {
+                totalRentCost += office.price;
+            }
+        }
+
+       
+        const totalRentCostElement = document.getElementById('total-rent-cost');
+        totalRentCostElement.innerText = `Общая стоимость аренды: ${totalRentCost} руб.`;
+    });
+}
+
+function booking(officeNumber) {
+    const url = '/lab6/json-rpc-api/';
+    const json = {
+        'jsonrpc': '2.0',
+        'method': 'booking',
+        'params': officeNumber,
+        'id': Math.round(Math.random()*1000)
+    };
+    fetch(url,{
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(json)
+    })
+    .then(function(response){
+        return response.json()
+    })
+    .then(function(data){
+        if(data.error){
+            switch(data.error.code){
+                case 1:
+                    alert('Вы не авторизованы! Войдите пожалуйста в систему');
+                    break;
+                case 2:
+                    alert('Офис уже арендуется');
+                    break;
+                case -32601:
+                    alert('Странная ошибка');
+                    break;
+            }
+        } else {
+            document.getElementById('office-list').innerHTML = '';
+            getOfficeList();
         }
     });
-    function booking(officeNumber) {
-        const url = '/lab6/json-rpc-api/';
-        const json = {
-            'jsonrpc': '2.0',
-            'method':'booking',
-            'params': officeNumber,
-            'id': Math.round(Math.random()*1000)
-        };
-        fetch(url,{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            body: JSON.stringify(json)
-        })
-        .then(function(response){
-            return response.json()
-        })
-        .then(function(data){
-            if(data.error){
-                switch(data.error.code){
-                    case 1:
-                        alert('Вы не авторизованы!Войдите пожалуйста в систему')
-                        break;
-                    case 2:
-                        alert('Офис уже арендуется')
-                        break;
-                    case -32601:
-                        alert('Странная ошибка')
-                        break;
-                }
-            }
-            else{
-                document.getElementById('office-list').innerHTML='';
-                getOfficeList();
-            }
-            
-        });
-    }
-    function cancellation(officeNumber) {
+}
+
+function cancellation(officeNumber) {
     const url = '/lab6/json-rpc-api/';
     const json = {
         'jsonrpc': '2.0',
@@ -114,8 +128,8 @@ function getOfficeList() {
         }
     });
 }
-}
-document.addEventListener('DOMContentLoaded',function(){
+
+document.addEventListener('DOMContentLoaded', function(){
     getOfficeList();
 });
 </script>
@@ -124,4 +138,5 @@ document.addEventListener('DOMContentLoaded',function(){
 {% block main %}
     <h1>Список кабинетов</h1>
     <ul id="office-list"></ul>
+    <p id="total-rent-cost">Общая стоимость аренды: 0 руб.</p>
 {% endblock %}
