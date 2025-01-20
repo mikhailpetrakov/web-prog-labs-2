@@ -32,6 +32,10 @@ films = [
     },
 ]
 
+@lab7.route('/lab7/rest-api/films/',methods=['GET'])
+def get_films():
+    return films
+
 @lab7.route('/lab7/rest-api/films/<int:id>', methods=['GET'])
 def get_film(id):
         if id <= (len(films)-1):
