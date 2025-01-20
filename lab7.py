@@ -55,3 +55,9 @@ def put_film(id):
         return film[id]
     else:
         return {"error": "Film not found"}, 404
+    
+@lab7.route('/lab7/rest-api/films',methods=['POST'])
+def add_film():
+    new_film = request.get_json()
+    films.append(new_film)
+    return {'id':len(films)-1},201
