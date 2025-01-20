@@ -57,6 +57,11 @@ def put_film(id):
     if id <= (len(films)-1):
         if film['description']=='':
             return {'description':'Заполните описание'}, 400
+        
+        # Если оригинальное название пустое, используем русское
+        if not film.get('title'):
+            films['title'] = film.get('title_ru', '')
+
         films[id] = film
         return film[id]
     else:
@@ -67,5 +72,10 @@ def add_film():
     new_film = request.get_json()
     if new_film['description'] == '':
         return {'description': 'Заполните описание'}, 400
+    
+    # Если оригинальное название пустое, используем русское
+    if not new_film.get('title'):
+        new_film['title'] = new_film.get('title_ru', '')
+
     films.append(new_film)
     return {'id': len(films) - 1}, 201

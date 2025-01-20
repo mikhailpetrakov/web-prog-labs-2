@@ -6,22 +6,76 @@
 <script src="{{ url_for('static',filename='lab7/main.js') }}"></script>
 
 <style>
-.modal{
+ /* Таблица */
+ table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+/* Кнопки */
+button {
+    padding: 5px 10px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #007bff; color: white;
+}
+button:hover {
+    background-color: #0056b3;
+}
+/* Модальное окно */
+.modal {
     display: none;
+    position: fixed;
     z-index: 100;
-    box-shadow: 3px 3px 5px black;
-    background: white;
-    width: 400px;
-    left: 50%;
-    top:220px;
-    margin-left:200px;
-    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.modal-content {
+    background-color: white;
+    margin: 15% auto;
     padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
-.error-message{
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Ошибки */
+.error-message {
     color: red;
+    font-size: 12px;
+    margin-top: 5px;
 }
-    </style>
+/* Курсив для оригинального названия */
+.italic {
+    font-style: italic;
+}
+</style>
 {% endblock %}
 
 {% block main %}
