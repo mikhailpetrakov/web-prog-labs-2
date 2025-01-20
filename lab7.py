@@ -46,3 +46,12 @@ def del_film(id):
         return '',204
     else:
         return {"error": "Film not found"}, 404
+    
+@lab7.route('/lab7/rest-api/films/<int:id>',methods=['PUT'])
+def put_film(id):
+    film = request.get_json()
+    if id <= (len(films)-1):
+        films[id] = film
+        return film[id]
+    else:
+        return {"error": "Film not found"}, 404
