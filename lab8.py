@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, abort, jsonify, current_app, redirect, session, flash
+from flask import Blueprint, render_template, request, abort, jsonify, current_app, redirect, session, flash, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from db.models import users,articles
@@ -7,6 +7,7 @@ from flask_login import login_user, login_required, current_user, logout_user
 lab8 = Blueprint('lab8', __name__)
 
 @lab8.route('/lab8/')
+@login_required
 def main():
     return render_template('lab8/lab8.html', login=session.get('login'))
 
@@ -63,4 +64,63 @@ def logout():
 @lab8.route('/lab8/list/')
 @login_required
 def list_articles():
-    return "список статей"
+    articles = articles.query.all()
+    return render_template('lab8/articles.html', articles=articles)
+
+@lab8.route('/lab8/articles/create', methods=['GET', 'POST'])
+@login_required
+def create_article():
+    if request.method == 'GET':
+        return render_template('lab8/create.html')
+    
+    title = request.form.get('title')
+    article_text = request.form.get('article_text')
+
+    if not title or not article_text:
+        flash('Название и содержание статьи не должны быть пустыми', 'error')
+        return redirect(url_for('lab8.list_articles'))
+    
+    new_article = articles(title=title, article_text=article_text, login_id=current_user.id)
+    db.session.add(new_article)
+    db.session.commit()
+    flash('Статья успешно создана!', 'success')
+    return redirect(url_for('lab8.list_articles')) 
+
+@lab8.route('/lab8/articles/edit/<int:article_id>', methods=['GET', 'POST'])
+@login_required
+def edit_article(article_id):
+    article = articles.query.get_or_404(article_id)
+
+    if article.login_id != current_user.id:
+        flash('У вас нет прав для редактирования этой статьи', 'error')
+        return redirect('/lab8/list')
+    
+    if request.method == 'GET':
+        return render_template('lab8/edit_article.html', article=article)
+    
+    title = request.form.get('title')
+    article_text = request.form.get('article_text')
+
+    if not title or not article_text:
+        flash('Название и содержание статьи не должны быть пустыми', 'error')
+        return redirect(url_for('lab8.edit_article', article_id=article_id))
+    
+    article.title = title
+    article.article_text = article_text
+    db.session.commit()
+    flash('Статья успешно обновлена!', 'success')
+    return redirect('/lab8/list')
+
+@lab8.route('/lab8/articles/delete/<int:article_id>', methods=['POST'])
+@login_required
+def delete_article(article_id):
+    article = articles.query.get_or_404(article_id)
+
+    if article.login_id != current_user.id:
+        flash('У вас нет прав для удаления этой статьи', 'error')
+        return redirect('/lab8/list')
+    
+    db.session.delete(article)
+    db.session.commit()
+    flash('Статья успешно удалена!', 'success')
+    return redirect('/lab8/list')
