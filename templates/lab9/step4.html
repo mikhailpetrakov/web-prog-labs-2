@@ -1,14 +1,21 @@
 {% extends "base.html" %}
 
-{% block lab %}Лабораторная работа 9{% endblock %}
+{% block lab %} Лабораторная 9{% endblock %}
 
 {% block main %}
     <h1>Поздравления</h1>
-    <form action="{{ url_for('lab9.step1') }}" method="POST">
-        <label for="name">Введите ваше имя:</label>
-        <input type="text" id="name" name="name" required>
+    <form action="{{ url_for('lab9.step4') }}" method="POST">
+        <label>Что вам больше нравится?</label>
+        <input type="radio" id="tasty" name="preference1" value="tasty" required>
+        <label for="tasty">Что-то вкусное</label>
+        <input type="radio" id="beautiful" name="preference1" value="beautiful" required>
+        <label for="beautiful">Что-то красивое</label>
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="age" value="{{ age }}">
+        <input type="hidden" name="gender" value="{{ gender }}">
         <button type="submit">Далее</button>
     </form>
+    
     <style>
         /* Основные стили */
     body {
@@ -69,7 +76,7 @@
     }
     
     img {
-        max-width: 100%;
+        max-width: 700px;
         height: auto;
         border-radius: 10px;
         margin-top: 20px;

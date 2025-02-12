@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+
+{% block lab %} Лабораторная 9{% endblock %}
+
+{% block main %}
+    <h1>Поздравления</h1>
+    <p>
+        Поздравляю тебя, {{ name }}, желаю, чтобы ты быстро {% if gender == 'male' %}вырос{% else %}выросла{% endif %}, был{% if gender == 'female' %}а{% endif %} умн{% if gender == 'male' %}ым{% else %}ой{% endif %}...
+    </p>
+    <p>
+        Вот тебе подарок — 
+        {% if preference1 == 'tasty' %}
+            {% if preference2 == 'sweet' %}
+                мешочек конфет.
+                <div></div>
+                <img src="{{ url_for('static', filename='lab9/candy.jpg') }}" alt="Конфеты">
+            {% else %}
+                сытный обед.
+                <div></div>
+                <img src="{{ url_for('static', filename='lab9/hearty.jpg') }}" alt="Сытное">
+            {% endif %}
+        {% else %}
+            {% if preference2 == 'art' %}
+                красивая картина.
+                <div></div>
+                <img src="{{ url_for('static', filename='lab9/art.jpg') }}" alt="Искусство">
+            {% else %}
+                прогулка по природе.
+                <div></div>
+                <img src="{{ url_for('static', filename='lab9/nature.jpg') }}" alt="Природа">
+            {% endif %}
+        {% endif %}
+    </p>
+
+<style>
+    /* Основные стили */
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-image: url('/static/lab9/ng.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-size: 3rem;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px #000;
+}
+
+form {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+label {
+    font-size: 1.2rem;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #ffd700;
+    color: #000;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ffa500;
+}
+
+img {
+    max-width: 700px;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+/* Стили для поздравления */
+p {
+    font-size: 1.5rem;
+    color: #ffd700;
+    text-shadow: 2px 2px 4px #000;
+}
+</style>
+{% endblock %}

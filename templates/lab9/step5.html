@@ -1,14 +1,29 @@
 {% extends "base.html" %}
 
-{% block lab %}Лабораторная работа 9{% endblock %}
+{% block lab %} Лабораторная 9{% endblock %}
 
 {% block main %}
     <h1>Поздравления</h1>
-    <form action="{{ url_for('lab9.step1') }}" method="POST">
-        <label for="name">Введите ваше имя:</label>
-        <input type="text" id="name" name="name" required>
+    <form action="{{ url_for('lab9.step5') }}" method="POST">
+        <label>Выберите предпочтение:</label>
+        {% if preference1 == 'tasty' %}
+            <input type="radio" id="sweet" name="preference2" value="sweet" required>
+            <label for="sweet">Сладкое</label>
+            <input type="radio" id="hearty" name="preference2" value="hearty" required>
+            <label for="hearty">Сытное</label>
+        {% else %}
+            <input type="radio" id="art" name="preference2" value="art" required>
+            <label for="art">Искусство</label>
+            <input type="radio" id="nature" name="preference2" value="nature" required>
+            <label for="nature">Природа</label>
+        {% endif %}
+        <input type="hidden" name="name" value="{{ name }}">
+        <input type="hidden" name="age" value="{{ age }}">
+        <input type="hidden" name="gender" value="{{ gender }}">
+        <input type="hidden" name="preference1" value="{{ preference1 }}">
         <button type="submit">Далее</button>
     </form>
+    
     <style>
         /* Основные стили */
     body {
