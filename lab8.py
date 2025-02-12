@@ -1,8 +1,8 @@
-from flask import Blueprint, render_template, request, abort, jsonify, current_app, redirect, session
+from flask import Blueprint, render_template, request, abort, jsonify, current_app, redirect, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from db import db
 from db.models import users,articles
-from flask_login import login_user, login_required, current_user
+from flask_login import login_user, login_required, current_user, logout_user
 
 lab8 = Blueprint('lab8', __name__)
 
@@ -26,6 +26,8 @@ def register():
     new_user = users(login = login_form, password = password_hash)
     db.session.add(new_user)
     db.session.commit()
+    login_user(new_user, remember=False)
+    flash('Вы успешно зарегистрированы и вошли в систему!', 'success')
  
     return redirect('/lab8/')
 
@@ -36,6 +38,8 @@ def login():
     
     login_form = request.form.get('login')
     password_form = request.form.get('password')
+    remember = request.form.get('remember')
+
     if not login_form:
         return render_template('lab8/login.html', error='Имя пользователя не должно быть пустым')
     
@@ -44,12 +48,19 @@ def login():
     user = users.query.filter_by(login = login_form).first()
     if user:
         if check_password_hash(user.password, password_form):
-            login_user(user, remember = False)
+            login_user(user, remember = remember)
             return redirect('/lab8/')
         
     return render_template('/lab8/login.html', error = 'Ошибка входа: логин и/или пароль неверный')
 
-@lab8.route('/lab8/articles/')
+@lab8.route('/lab8/logout')
 @login_required
-def article_list():
+def logout():
+    logout_user()
+    session.pop('login', None)
+    return redirect('/lab8/')
+
+@lab8.route('/lab8/list/')
+@login_required
+def list_articles():
     return "список статей"
